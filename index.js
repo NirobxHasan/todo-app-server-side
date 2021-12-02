@@ -30,6 +30,31 @@ async function run() {
         const result = await usersCollection.insertOne(data);
         res.json('result')
       })
+
+
+    //Update User Profile
+      app.put('/users/:email', async(req,res)=>{
+        const user = req.body;
+        const prepEmail = req.params.email;
+        console.log(prepEmail,user);
+        const filter = {email: prepEmail }
+        const options = { upsert: true };
+        const updateDoc = {
+            $set:{
+                displayName: user.name,
+                email: user.email,
+            } 
+        }
+        const result = await usersCollection.updateOne(filter,updateDoc,options);
+        res.json(result);
+
+      })
+      //Delete User
+      app.delete('/users/:email', async(req,res)=>{
+          const email = req.params.email;
+          const result = await usersCollection.deleteOne({email:email})
+          res.json(result)
+      })
     
       //Notes post
       app.post('/notes', async(req,res)=>{
