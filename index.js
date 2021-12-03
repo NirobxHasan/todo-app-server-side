@@ -9,6 +9,7 @@ const app = express();
 
 //firebase admin initailization
 var serviceAccount = require('./todo-app-nh-firebase-adminsdk-ehx7n-2dfd97df11.json');
+// var serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
